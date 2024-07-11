@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <style>
+
+        body {
+          margin: 0; /* Remove default body margins */
+          font-family: sans-serif; /* Set a basic font family */
+        }
+
+        .background-overlay {
+          position: fixed; /* Fix the overlay to the viewport */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%; /* Cover the entire viewport */
+          background-image: url('images/logo.jpg'); /* Set background image */
+          background-size: cover; /* Cover the entire area */
+          background-position: center; /* Center the image */
+          background-repeat: no-repeat; /* Prevent image repetition */
+          opacity: 0.1; /* Set desired opacity (0-1 for transparency) */
+          z-index: -1; /* Place the overlay behind the content */
+        }
+
+        .container {
+          position: relative; /* Enable relative positioning */
+          margin: 0 auto; /* Center the container horizontally */
+          max-width: 80%; /* Set a maximum width for responsiveness */
+          padding: 20px; /* Add some padding around the content */
+        }
+
+                table, th, td {
+                  border: 1px solid black;
+                }
+
+        .myDiv {
+          border: 5px outset red;
+          background-color: beige;
+          text-align: center;
+          margin: 2% 20% 2% 20%;
+        }
+
+        <style>
+    table {
+        width: 100%; /* Make the table span the full width of its container */
+        border-collapse: collapse; /* Collapse borders to create a seamless appearance */
+        margin: 20px auto; /* Add some spacing around the table */
+    }
+
+    th, td {
+        padding: 10px; /* Add padding to cells for spacing */
+        border: 1px solid #ccc; /* Add a thin gray border to each cell */
+        text-align: left; /* Align text to the left */
+    }
+
+    th {
+        font-weight: bold; /* Make header text bold */
+    }
+
+    tbody tr:nth-child(odd) {
+
+    }
+    </style>
+
+    </style>
+    <title>Personen-Datenbank</title>
+</head>
+<body>
+<div class="background-overlay"></div>
+<div class="container"></div>
+
+<center>
+    <h1>Personen-Datenbank</h1>
+
+    <div class="myDiv">
+        <form action="http://localhost:8080/addPerson" method="post">
+            Vorname: <br><input name="firstName" required type="text"><br>
+            Nachname: <br><input name="lastName" required type="text"><br>
+            E-Mail: <br><input name="email" required type="email"><br>
+            Land: <br><input name="country" type="text"><br>
+            Geburtstag: <br><input name="birthday" type="date"><br>
+            Gehalt: <br><input name="salary" required type="number"><br>
+            Bonus: <br><input name="bonus" type="number"><br>
+            <input type="submit" value="Person hinzufügen">
+        </form>
+    </div>
+
+    <h2>Alle Einträge anzeigen</h2>
+    <form action="http://localhost:8080/alleAnzeigen" method="post">
+        <input type="submit" value="Alle Einträge anzeigen">
+    </form>
+
+    <br>
+
+    <hr>
+
+    <h2>Eintrag löschen</h2>
+
+    <form action="http://localhost:8080/deletePerson" method="post">
+        ID der zu löschenden Person eingeben: <br><input name="id" required type="number"><br>
+        <input type="submit" value="Person löschen">
+    </form>
+
+    <br><hr>
+
+    <section id="eintrag-bearbeiten">
+        <h2>Eintrag bearbeiten</h2>
+    </section><p>
+
+    <form action="http://localhost:8080/editPerson" method="post">
+
+        Neuer Wert eingeben: <br> <input name="filterText" required type="text"><br>
+
+        ID des Eintrags: <br> <input **id="id"** name="filterId" required type="text"><br>
+        <br>
+
+        <div class="radio-buttons">
+            <label for="updateFirstName">
+                <input type="radio" id="updateFirstName" name="updateOption" value="firstName" checked>
+                Vorname aktualisieren
+            </label>
+
+            <label for="updateLastName">
+                <input type="radio" id="updateLastName" name="updateOption" value="lastName">
+                Nachname aktualisieren
+            </label>
+
+            <label for="updateCountry">
+                <input type="radio" id="updateCountry" name="updateOption" value="country">
+                Land aktualisieren
+            </label>
+
+            <label for="updateEmail">
+                <input type="radio" id="updateEmail" name="updateOption" value="email" required typeof="email">
+                E-Mail aktualisieren
+            </label>
+
+            <label for="updateBirthday">
+                <input type="radio" id="updateBirthday" name="updateOption" value="birthday">
+                Geburtstag aktualisieren
+            </label>
+
+            <label for="updateSalary">
+                <input type="radio" id="updateSalary" name="updateOption" value="salary" required typeof="number">
+                Gehalt aktualisieren
+            </label>
+
+            <label for="updateBonus">
+                <input type="radio" id="updateBonus" name="updateOption" value="bonus" required typeof="number">
+                Bonus aktualisieren
+            </label>
+
+        </div>
+
+        <br>
+
+        <input type="submit" value="Person aktualisieren">
+    </form>
+
+    <br><hr>
+
+    <h2>Sortieren</h2><p>
+
+    <form action="http://localhost:8080/sortieren" method="post">
+
+    Nach Vorname, Nachname oder Land <br>
+    <select name="sortOption">
+        <option value="firstName">Vorname</option>
+        <option value="lastName">Nachname</option>
+        <option value="country">Land</option>
+        <option value="email">E-Mail</option>
+        <option value="birthday">Geburtstag</option>
+        <option value="salary">Gehalt</option>
+        <option value="bonus">Bonus</option>
+    </select>
+
+    <!-- Radio button ASC und DESC -->
+        <br>
+
+        <div class="radio-buttons">
+            <label for="asc">
+                <input type="radio" id="asc" name="sortieroption" value="asc" checked>
+                Sortieren Absteigend
+            </label>
+
+            <label for="desc">
+                <input type="radio" id="desc" name="sortieroption" value="desc">
+                Sortieren Aufsteigend
+            </label>
+        </div>
+
+        <br>
+
+        <input type="submit" value="Tabelle sortieren">
+    </form>
+
+    <br><hr>
+
+    <h2>Filtern</h2><p>
+
+    <form action="http://localhost:8080/filter" method="post">
+        Text oder Zahl eingeben nach dem gefiltert werden soll: <br><input name="filterText" required type="text"><br>
+        <input type="submit" value="Filtern nach">
+
+    <br>
+
+        <div>
+            <input type="radio" id="vorname" name="filterOption" value="vorname" checked />
+            <label for="vorname">Vorname</label>
+            <input type="radio" id="nachname" name="filterOption" value="nachname" checked />
+            <label for="nachname">Nachname</label>
+            <input type="radio" id="land" name="filterOption" value="land" checked />
+            <label for="land">Land</label>
+            <input type="radio" id="email" name="filterOption" value="email" checked />
+            <label for="vorname">E-Mail</label>
+            <input type="radio" id="birthday" name="filterOption" value="birthday" checked />
+            <label for="vorname">Geburtstag</label>
+            <input type="radio" id="salary" name="filterOption" value="salary" checked />
+            <label for="vorname">Gehalt</label>
+            <input type="radio" id="bonus" name="filterOption" value="bonus" checked />
+            <label for="vorname">Bonus</label>
+        </div>
+
+    </form>
+
+    <br>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>E-Mail</th>
+            <th>Land</th>
+            <th>Geburtstag</th>
+            <th>Gehalt</th>
+            <th>Bonus</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>10</td>
+            <td>wiede</td>
+            <td>pat</td>
+            <td>sadfasd@sdfasd.de</td>
+            <td>desafdasdf</td>
+            <td>1950-12-12</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Daniel</td>
+            <td>Hofmann</td>
+            <td>daniel.hofmann@web.de</td>
+            <td>Deutschland</td>
+            <td>1989-12-12</td>
+            <td>500</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Patrick</td>
+            <td>Wiedenmann</td>
+            <td>pat.wiedenmann@web.de</td>
+            <td>Deutschland</td>
+            <td>1988-08-30</td>
+            <td>5000</td>
+            <td>500</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>George</td>
+            <td>Romero</td>
+            <td>gr@zombies.com</td>
+            <td>England</td>
+            <td>1938-08-24</td>
+            <td>10000</td>
+            <td>500</td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td>Diana</td>
+            <td>Schmidt</td>
+            <td>dm@web.de</td>
+            <td>Österreich</td>
+            <td>1983-12-16</td>
+            <td>2580</td>
+            <td>240</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Joachim</td>
+            <td>sadfasf</td>
+            <td>sdafsafsa@sadf.de</td>
+            <td>dsfacäkewö</td>
+            <td>1950-12-12</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>jakub</td>
+            <td>wayzweösadf</td>
+            <td>jakub@outlook.de</td>
+            <td>USA</td>
+            <td>1950-12-10</td>
+            <td>400</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Tomaaa</td>
+            <td>Harald</td>
+            <td>Harald.Schweden@sweden.sw</td>
+            <td>dasfsadfads</td>
+            <td>1950-12-12</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Hans</td>
+            <td>Mustermann</td>
+            <td>hans.mustermann@mischok.de</td>
+            <td>sadfsaf</td>
+            <td>1940-10-10</td>
+            <td>5200</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Thomas</td>
+            <td>Test</td>
+            <td>Thomas.Tomate@web.de</td>
+            <td>Schweiz</td>
+            <td>1950-12-12</td>
+            <td>5000</td>
+            <td>300</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>pat</td>
+            <td>wiede</td>
+            <td>sdfsafd@dasfas.de</td>
+            <td>deutschland</td>
+            <td>1988-08-30</td>
+            <td>444</td>
+            <td>10</td>
+        </tr>
+        </tbody>
+    </table>
+    <style>
+        tr:hover {
+          background-color: #ff0000; /* Hellgrauer Hintergrund beim Hovern */
+        }
+    </style>
+
+    <p></p>
+</center>
+
+</body>
+</html>
